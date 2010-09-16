@@ -36,11 +36,6 @@ class PartsTest < ActiveSupport::TestCase
     assert_equal expected, last_response.body
   end
 
-  test "render the html format by default to the controller that set it" do
-    get "/main/index4"
-    assert_match /part_html_format/m, last_response.body
-  end
-
   test "render the xml format according to the controller" do
     get "/main/index4.xml"
     assert_match /part_xml_format/m, last_response.body
@@ -63,10 +58,6 @@ class PartsTest < ActiveSupport::TestCase
     assert_match /my_second_param = my_value/, last_response.body
   end
 
-  test "render from inside a view" do
-    get "/main/part_within_view"
-    assert_match /Do this/, last_response.body
-  end
 
   test "use helpers from application" do
     get "/main/part_with_helpers"
@@ -81,6 +72,16 @@ class PartsTest < ActiveSupport::TestCase
   test "parts can render other parts" do
     get "main/part_renders_part"
     assert_equal "one_part FOO\nother_part\nFOO\n\n", last_response.body
+  end
+
+  test "render the html format by default to the controller that set it" do
+    get "/main/index4"
+    assert_match /part_html_format/m, last_response.body
+  end
+
+  test "render from inside a view" do
+    get "/main/part_within_view"
+    assert_match /Do this/, last_response.body
   end
 end
 
