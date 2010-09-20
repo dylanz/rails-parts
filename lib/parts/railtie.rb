@@ -16,18 +16,7 @@ module Parts
 
       Dir.glob(File.join(app.root.to_s, 'app', 'parts', '*')).each do |path|
         Rails::Paths::Path.new(paths, [path, {:eager_load => true}])
-        #paths.app.parts path, :eager_load => true ## OLD
       end
-
-      Dir.glob(File.join(app.root.to_s, 'app', 'parts', '*', 'views')).each do |path|
-        #paths.app.parts.views path ## OLD
-        Rails::Paths::Path.new(paths, path)
-        Parts::Base.append_view_path path
-      end
-
-      #paths.app.parts.views.to_a.each do |path|
-        #Parts::Base.append_view_path path ## OLD
-      #end
 
       Parts::Base.helpers_path = paths.app.helpers.to_a.first
     end

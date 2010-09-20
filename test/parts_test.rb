@@ -58,10 +58,14 @@ class PartsTest < ActiveSupport::TestCase
     assert_match /my_second_param = my_value/, last_response.body
   end
 
-
   test "use helpers from application" do
     get "/main/part_with_helpers"
     assert_equal "<a href=\"#\">foo</a>\nfoo helper\n", last_response.body
+  end
+
+  test "render the html format by default to the controller that set it" do
+    get "/main/index4"
+    assert_match /part_html_format/m, last_response.body
   end
 
   test "parts know controller's params" do
@@ -72,11 +76,6 @@ class PartsTest < ActiveSupport::TestCase
   test "parts can render other parts" do
     get "main/part_renders_part"
     assert_equal "one_part FOO\nother_part\nFOO\n\n", last_response.body
-  end
-
-  test "render the html format by default to the controller that set it" do
-    get "/main/index4"
-    assert_match /part_html_format/m, last_response.body
   end
 
   test "render from inside a view" do
